@@ -8,7 +8,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 
-class QuakeActivityCallbacks(
+internal class QuakeActivityCallbacks(
   private val quake: Quake
 ): Application.ActivityLifecycleCallbacks {
 

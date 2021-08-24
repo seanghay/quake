@@ -5,7 +5,7 @@ import java.nio.charset.StandardCharsets.UTF_8
 import java.util.zip.GZIPInputStream
 import java.util.zip.GZIPOutputStream
 
-fun gzip(content: String): ByteArray {
+internal fun gzip(content: String): ByteArray {
   val bos = ByteArrayOutputStream()
   GZIPOutputStream(bos).bufferedWriter(UTF_8).use { it.write(content) }
   return bos.toByteArray()

@@ -44,7 +44,11 @@ class Quake(private val context: Context) {
 
   private fun showInfo(activity: Activity) {
     val descriptor = describeActivity(activity) ?: return
-    val report = Report(device = DeviceInfo.from(activity), activity = descriptor)
+
+    val report = Report(
+      device = DeviceInfo.from(activity),
+      activity = descriptor
+    )
 
     executor.execute {
 
@@ -54,16 +58,17 @@ class Quake(private val context: Context) {
 
       activity.runOnUiThread {
         if (!activity.isDestroyed || !activity.isFinishing) {
+
           dialogs[activity]?.dismiss()
           dialogs.remove(activity)
 
           val dialog = AlertDialog.Builder(activity)
-            .setTitle("Quake QR")
-            .setMessage("Share this QR with the developer")
+            .setTitle(DIALOG_TITLE)
+            .setMessage(DIALOG_MESSAGE)
             .setView(ImageView(activity).apply {
               setImageBitmap(bitmap)
             })
-            .setPositiveButton("Done") {d, _ -> d.dismiss()}
+            .setPositiveButton(DIALOG_BUTTON) {d, _ -> d.dismiss()}
             .create()
 
           dialog.setOnDismissListener { dialogs.remove(activity) }
@@ -81,7 +86,7 @@ class Quake(private val context: Context) {
     return ClassDescriptor(
       name,
       simpleName,
-      "activity",
+      ACTIVITY_TYPE,
       allFragmentsOf(activity.supportFragmentManager)
     )
   }
@@ -93,14 +98,13 @@ class Quake(private val context: Context) {
       val descriptor = ClassDescriptor(
         simpleName = fragment.javaClass.simpleName,
         name = fragment.javaClass.name,
-        type = "fragment",
+        type = FRAGMENT_TYPE,
         children = allFragmentsOf(fragment.childFragmentManager)
       )
       collection.add(descriptor)
     }
     return collection
   }
-
 
   internal fun start(activity: Activity) {
     val cached = storage[activity]
@@ -118,5 +122,13 @@ class Quake(private val context: Context) {
     val cached = storage[activity] ?: return
     cached.stop()
     storage.remove(activity)
+  }
+
+  companion object {
+    private const val FRAGMENT_TYPE = "fragment"
+    private const val ACTIVITY_TYPE = "activity"
+    private const val DIALOG_TITLE = "Quake QR"
+    private const val DIALOG_MESSAGE = "Share this QR with the developer"
+    private const val DIALOG_BUTTON = "Done"
   }
 }
