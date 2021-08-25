@@ -8,11 +8,11 @@ This library allow testers to shake the device to show the QR code which corespo
 
 The QR code contains enough information for developer to troubleshoot the issue such as:
 
-- Application version name & version code
-- Android Version
-- Current Activity/Fragment with (e.g. com.example.app.ui.MainActivity)
-- Device Model (Google Pixel 4 XL)
-- Screen size/density (WIP)
+- [x] Application version name & version code
+- [x] Android Version
+- [x] Current Activity/Fragment with (e.g. com.example.app.ui.MainActivity)
+- [x] Device Model (Google Pixel 4 XL)
+- [ ] Screen size/density (WIP)
 
 > It uses `gzip` to compress the content to keep the QR code content smaller.
 
@@ -35,6 +35,7 @@ allprojects {
 
 ```groovy
 dependencies {
-  implementation 'com.github.seanghay:quake:0.0.6-alpha03' 
+  // it should only be on debug build only.
+  debugImplementation 'com.github.seanghay:quake:0.0.6-alpha03' 
 }
 ```
