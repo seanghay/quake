@@ -24,10 +24,10 @@ The QR code contains enough information for developer to troubleshoot the issue 
 
 ```groovy
 allprojects {
-	repositories {
-		...
-		maven { url 'https://jitpack.io' }
-	}
+  repositories {
+    ...
+    maven { url 'https://jitpack.io' }
+  }
 }
 ```
 
