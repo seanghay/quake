@@ -39,3 +39,5 @@ dependencies {
   debugImplementation 'com.github.seanghay:quake:0.0.6-alpha03' 
 }
 ```
+
+3. Start your application and shake it!
